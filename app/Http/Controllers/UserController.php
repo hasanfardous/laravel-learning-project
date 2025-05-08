@@ -54,7 +54,6 @@ class UserController extends Controller
     public function update(Request $request)
     {
         //
-
         $request->validate([
             'name' => ['required', 'string', 'min:4', 'max:20'],
             'email' => ['required', 'email', Rule::unique(User::class, 'email')->ignore($request->id)],
@@ -71,4 +70,12 @@ class UserController extends Controller
 
         return redirect(route('user.index'))->with('success', "User updated Successfully");
     }
+
+    public function delete(Request $request)
+    {
+        User::findOrFail($request->id)->delete();
+
+        return redirect(route('user.index'))->with('success', "User delete Successfully");
+    }
+
 }

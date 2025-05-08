@@ -24,6 +24,11 @@
             <td>
                 <a href="{{ route('user.edit', $user->id) }}"
                     style="padding: 5px 15px; color: #fff; background: green; text-decoration: none;">{{ __('Edit') }}</a>
+                <form action="{{ route('user.delete', $user->id) }}" method="post">
+                    @method('DELETE')
+                    @csrf
+                    <button type="submit" style="padding: 5px 15px; color: #fff; background: red; text-decoration: none;">{{ __('Delete') }}</button>
+                </form>
             </td>
         </tr>
     @empty
