@@ -14,3 +14,7 @@ Route::post('/users', [UserController::class, 'store'])->name('user.store');
 Route::get('/users/{id}/edit', [UserController::class, 'edit'])->name('user.edit');
 Route::patch('/users/{id}/update', [UserController::class, 'update'])->name('user.update');
 Route::delete('/users/{id}/delete', [UserController::class, 'delete'])->name('user.delete');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
