@@ -18,3 +18,5 @@ Route::delete('/users/{id}/delete', [UserController::class, 'delete'])->name('us
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::resource('categories', \App\Http\Controllers\CategoryController::class);

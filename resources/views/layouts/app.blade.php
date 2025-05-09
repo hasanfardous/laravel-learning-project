@@ -35,20 +35,12 @@
                         <li class="nav-item">
                             <a class="nav-link {{ Route::is('user.index') ? 'active' : '' }}" href="{{ route('user.index') }}">User</a>
                         </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Dropdown
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
-                            </ul>
-                        </li>
                         <li class="nav-item">
-                            <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+                            <a class="nav-link {{ Route::is('categories.index') ? 'active' : '' }}" href="{{ route('categories.index') }}">
+                                {{ __('Category') }}
+                            </a>
                         </li>
+
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -90,6 +82,23 @@
             </div>
         </nav>
 
+        <div class="container">
+            @if(session('success'))
+                <div class="alert alert-success my-3" role="alert">
+                   {{ session('success') }}
+                </div>
+            @endif
+            @if(session('error'))
+                <div class="alert alert-danger my-3" role="alert">
+                    {{ session('error') }}
+                </div>
+            @endif
+            @if(session('info'))
+                <div class="alert alert-info my-3" role="alert">
+                    {{ session('info') }}
+                </div>
+            @endif
+        </div>
         <main class="py-4">
             @yield('content')
         </main>
