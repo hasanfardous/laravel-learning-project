@@ -32,7 +32,7 @@
                     <label for="slug" class="col-md-4 col-form-label text-md-end">{{ __('Category Slug') }}</label>
 
                     <div class="col-md-6">
-                        <input id="slug" type="text" class="form-control @error('slug') is-invalid @enderror" name="slug" value="{{ old('slug') }}" required>
+                        <input id="slug" type="text" class="form-control @error('slug') is-invalid @enderror" name="slug" value="{{ old('slug') }}" >
 
                         @error('slug')
                             <span class="invalid-feedback" role="alert">

@@ -41,6 +41,12 @@
                             </a>
                         </li>
 
+                        <li class="nav-item">
+                            <a class="nav-link {{ Route::is('posts.index') ? 'active' : '' }}" href="{{ route('posts.index') }}">
+                                {{ __('Posts') }}
+                            </a>
+                        </li>
+
                     </ul>
 
                     <!-- Right Side Of Navbar -->

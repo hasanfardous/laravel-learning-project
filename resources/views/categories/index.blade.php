@@ -30,7 +30,12 @@
                             <div class="btn-group" role="group" aria-label="Basic mixed styles example">
                                 <a href="{{ route('categories.show', $category->id) }}" class="btn btn-success">View</a>
                                 <a href="{{ route('categories.edit', $category->id) }}" class="btn btn-warning">Edit</a>
-                                <button type="button" class="btn btn-danger">Delete</button>
+                                <form action="{{ route('categories.destroy', $category->id) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </form>
+
                             </div>
                         </td>
                     </tr>

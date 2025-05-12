@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
@@ -30,11 +31,18 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+
         $data = $request->validate([
-            'name' => ['required', 'string', 'max:50'],
-            'slug' => ['required', 'max:100', 'string', 'unique:categories'],
+            'name' => ['required', 'string', 'max:50', 'unique:categories'],
+            'slug' => ['nullable', 'max:100', 'string', 'unique:categories'],
             'description' => ['nullable', 'max:255', 'string'],
         ]);
+
+        if (!$data['slug']) {
+            $data['slug'] = Str::slug($data['name']);
+        } else {
+            $data['slug'] = Str::slug($data['slug']);
+        }
 
         Category::create($data);
 
@@ -46,7 +54,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        //
+        return view('categories.show', compact('category'));
     }
 
     /**
@@ -77,6 +85,7 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
+        return redirect()->route('categories.index')->with('info', 'Category delete Successfully');
     }
 }
