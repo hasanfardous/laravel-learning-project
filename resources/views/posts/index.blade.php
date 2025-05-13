@@ -13,13 +13,21 @@
             <div class="row">
                 @forelse($posts as $post)
                     <div class="col-md-4">
-                        <div class="post card">
+
+                        <div class="card" style="width: 18rem;">
+                            <img src="{{ asset('uploads/'. $post->image) }}" class="card-img-top" alt="{{ $post->title }}" />
                             <div class="card-body">
-                                <img src="{{ asset('uploads/'. $post->image) }}" width="100%" height="300px; " />
-                                <h3>{{ $post->title }}</h3>
-                                <a class="btn btn-primary w-100" href="{{ route('posts.show', $post->id) }}">{{ __('View Post') }}</a>
+                                <a class="text-decoration-none" href="{{ route('posts.show', $post->id) }}">
+                                    <h5 class="card-title">{{ $post->title }}</h5>
+                                </a>
+                                <p class="card-text">{{ \Illuminate\Support\Str::limit($post->description, 60, '...') }}</p>
+                                <a href="{{ route('posts.show', $post->id) }}" class="btn btn-primary">Show Post</a>
+                                @if(auth()->user()->id == $post->user_id)
+                                    <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-primary">Edit</a>
+                                @endif
                             </div>
                         </div>
+
                     </div>
                 @empty
                     <div class="col-md-12">

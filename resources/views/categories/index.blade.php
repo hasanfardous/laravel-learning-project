@@ -1,7 +1,4 @@
-@extends('layouts.app')
-
-@section('content')
-
+<x-admin>
     <div class="container">
         <div class="d-flex justify-content-md-between align-items-center flex-column flex-md-row gap-3">
             <h1>{{ __('Category list') }}</h1>
@@ -48,5 +45,4 @@
             </table>
         </div>
     </div>
-
-@endsection
+</x-admin>

@@ -37,7 +37,7 @@ class PostController extends Controller
         $data = $request->validate([
             'title' => ['required', 'string', 'max:255'],
             'category_id' => ['required', 'int'],
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'description' => ['required', 'string'],
         ]);
 
@@ -63,7 +63,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        //
+        return view('posts.show', compact('post'));
     }
 
     /**
@@ -71,7 +71,8 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        $categories  = Category::pluck('name', 'id');
+        return view('posts.edit', compact('post', 'categories'));
     }
 
     /**
@@ -79,7 +80,25 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+        $data = $request->validate([
+            'title' => ['required', 'string', 'max:255'],
+            'category_id' => ['required', 'int'],
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'description' => ['required', 'string'],
+        ]);
+
+        if ($request->image){
+            $imageName = time().'.'.$request->image->extension();
+            $request->image->move(public_path('uploads'), $imageName);
+
+            $data['image'] = $imageName;
+        }else {
+            unset($data['image']);
+        }
+
+        $post->update($data);
+
+        return redirect()->route('posts.index')->with('success', 'Post Updated Successfully');
     }
 
     /**
@@ -87,6 +106,11 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        if ($post->user_id == Auth::id()){
+            $post->delete();
+            return redirect()->route('posts.index')->with('success', 'Post Delete Successfully');
+        } else {
+            return redirect()->back()->with('error', 'Un authorize access');
+        }
     }
 }
